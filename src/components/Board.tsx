@@ -1,11 +1,10 @@
 import { useReducer } from 'react';
-import { createBoard, boardReducer } from '../utils/boardReducer';
+import { createBoard, boardReducer } from '../reducers/boardReducer.ts';
 import { Box } from '@mui/material';
-import { Cell } from './Cell';
+import { Row } from './Row';
 
 export function Board() {
   const [board, dispatch] = useReducer(boardReducer, createBoard());
-
   return (
     <Box
       sx={{
@@ -16,21 +15,12 @@ export function Board() {
       }}
     >
       {board.map((row, rowIndex) => (
-        <Box
-          sx={{ display: 'flex', flexDirection: 'row', gap: '4px' }}
+        <Row
           key={`row-${rowIndex}`}
-        >
-          {row.map((value, colIndex) => (
-            <Cell
-              onClick={() =>
-                dispatch({ type: 'CELL_CLICK', colIndex, rowIndex })
-              }
-              key={`cell-${colIndex}-${rowIndex}-${value}`}
-            >
-              {value}
-            </Cell>
-          ))}
-        </Box>
+          row={row}
+          rowIndex={rowIndex}
+          dispatch={dispatch}
+        />
       ))}
     </Box>
   );

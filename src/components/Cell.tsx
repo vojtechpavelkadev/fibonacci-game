@@ -1,22 +1,27 @@
 import { Button } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback } from 'react';
 import { flashAnimation } from '../styles/animations';
 
-type FlashStateType = false | 'yellow' | 'green';
+export const Cell = React.memo(function Cell({
+  cell,
+  dispatch,
+  colIndex,
+  rowIndex,
+}: {
+  cell: { value: number };
+  dispatch: React.Dispatch<{
+    type: 'CELL_CLICK' | 'RESET';
+    colIndex: number;
+    rowIndex: number;
+  }>;
+  colIndex: number;
+  rowIndex: number;
+}) {
+  const flash = cell.value ? 'yellow' : 'green';
 
-export function Cell({
-  children,
-  onClick,
-}: React.PropsWithChildren<{ onClick: () => void }>) {
-  const [flash, setFlash] = useState<FlashStateType>(false);
-
-  useEffect(() => {
-    setFlash(false);
-    const id = requestAnimationFrame(() => {
-      children ? setFlash('yellow') : setFlash('green');
-    });
-    return () => cancelAnimationFrame(id);
-  }, [children]);
+  const onClick = useCallback(() => {
+    dispatch({ type: 'CELL_CLICK', colIndex, rowIndex });
+  }, [dispatch, colIndex, rowIndex]);
 
   return (
     <Button
@@ -32,7 +37,7 @@ export function Cell({
       }}
       onClick={onClick}
     >
-      {children || ''}
+      {cell.value || ''}
     </Button>
   );
-}
+});
