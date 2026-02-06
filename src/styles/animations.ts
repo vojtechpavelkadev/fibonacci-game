@@ -1,12 +1,12 @@
-import { keyframes } from "@mui/material";
+import { keyframes } from '@mui/material';
 
-export const flashYellow = keyframes`
+export const flashAnimation = (color: string) => keyframes`
   from {
     background-color: transparent;
   }
   50% {
-    background-color: #ffe600ff;
-  }  
+    background-color: ${color};
+  }
   to {
     background-color: transparent;
   }
