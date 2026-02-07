@@ -5,15 +5,9 @@ import { Cell } from './Cell';
 export const Row = React.memo(function Row({
   row,
   rowIndex,
-  dispatch,
 }: {
   row: { value: number }[];
   rowIndex: number;
-  dispatch: React.Dispatch<{
-    type: 'CELL_CLICK' | 'RESET';
-    colIndex: number;
-    rowIndex: number;
-  }>;
 }) {
   return (
     <Box
@@ -22,7 +16,6 @@ export const Row = React.memo(function Row({
     >
       {row.map((cell, colIndex) => (
         <Cell
-          dispatch={dispatch}
           colIndex={colIndex}
           rowIndex={rowIndex}
           key={`cell-${colIndex}-${rowIndex}`}

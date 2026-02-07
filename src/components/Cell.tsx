@@ -1,23 +1,20 @@
 import { Button } from '@mui/material';
 import React, { useCallback } from 'react';
 import { flashAnimation } from '../styles/animations';
+import { useBoardDispatch } from '../context/BoardContext';
 
 export const Cell = React.memo(function Cell({
   cell,
-  dispatch,
   colIndex,
   rowIndex,
 }: {
   cell: { value: number };
-  dispatch: React.Dispatch<{
-    type: 'CELL_CLICK' | 'RESET';
-    colIndex: number;
-    rowIndex: number;
-  }>;
   colIndex: number;
   rowIndex: number;
 }) {
   const flash = cell.value ? 'yellow' : 'green';
+
+  const dispatch = useBoardDispatch();
 
   const onClick = useCallback(() => {
     dispatch({ type: 'CELL_CLICK', colIndex, rowIndex });
