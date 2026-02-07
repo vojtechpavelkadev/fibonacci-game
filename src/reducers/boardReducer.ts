@@ -2,7 +2,12 @@ import { resolveFibonacciMatches } from '../utils/fibonacci';
 
 const SIZE = 50;
 
-type BoardStateType = { value: number }[][];
+export type BoardStateType = { value: number }[][];
+export type BoardActionType = {
+  type: 'CELL_CLICK' | 'RESET';
+  colIndex: number;
+  rowIndex: number;
+};
 
 export function createBoard() {
   return Array.from({ length: SIZE }, () =>
@@ -10,10 +15,7 @@ export function createBoard() {
   );
 }
 
-export function boardReducer(
-  state: BoardStateType,
-  action: { type: 'CELL_CLICK' | 'RESET'; colIndex: number; rowIndex: number },
-) {
+export function boardReducer(state: BoardStateType, action: BoardActionType) {
   switch (action.type) {
     case 'CELL_CLICK': {
       const { rowIndex, colIndex } = action;
