@@ -1,0 +1,50 @@
+import { resolveFibonacciMatches } from '../utils/resolveFibonacciMatches';
+
+const SIZE = 50;
+
+type BoardStateType = { value: number }[][];
+
+export function createBoard() {
+  return Array.from({ length: SIZE }, () =>
+    Array.from({ length: SIZE }, () => ({ value: 0 })),
+  );
+}
+
+export function boardReducer(
+  state: BoardStateType,
+  action: { type: 'CELL_CLICK' | 'RESET'; colIndex: number; rowIndex: number },
+) {
+  switch (action.type) {
+    case 'CELL_CLICK': {
+      const { rowIndex, colIndex } = action;
+
+      const newBoard = state.map((row, r) => {
+        if (r === rowIndex) {
+          return row.map((cell) => ({
+            value: cell.value + 1,
+          }));
+        }
+
+        const cell = row[colIndex];
+        if (!cell) return row;
+
+        const newRow = [...row];
+        newRow[colIndex] = {
+          value: cell.value + 1,
+        };
+
+        return newRow;
+      });
+
+      resolveFibonacciMatches(newBoard, rowIndex, colIndex);
+
+      return newBoard;
+    }
+
+    case 'RESET':
+      return createBoard();
+
+    default:
+      return state;
+  }
+}

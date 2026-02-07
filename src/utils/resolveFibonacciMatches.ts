@@ -1,7 +1,7 @@
 import { findFibonacci } from './fibonacci';
 
 export const resolveFibonacciMatches = (
-  board: number[][],
+  board: { value: number }[][],
   rowIndex: number,
   colIndex: number,
 ) => {
@@ -13,8 +13,8 @@ export const resolveFibonacciMatches = (
 
     if (fibonacciCheckResult.length > 0) {
       for (const [resultRow, resultCol] of fibonacciCheckResult) {
-        if (board[resultRow][resultCol] === 0) continue;
-        board[resultRow][resultCol] = 0;
+        if (board[resultRow][resultCol].value === 0) continue;
+        board[resultRow][resultCol] = { value: 0 };
       }
     }
   }

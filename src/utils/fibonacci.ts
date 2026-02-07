@@ -7,13 +7,13 @@ for (let i = 2; i < FIB_COUNT; i++) {
   fibonacci[i] = fibonacci[i - 1] + fibonacci[i - 2];
 }
 
-const isConsecutiveFibonacci = (values: number[]) => {
+const isConsecutiveFibonacci = (values: { value: number }[]) => {
   if (values.length < 2) return false;
 
-  if (values[0] !== 0 || values[1] !== 1) return false;
+  if (values[0].value !== 0 || values[1].value !== 1) return false;
 
   for (let i = 2; i < values.length; i++) {
-    if (values[i] !== values[i - 1] + values[i - 2]) {
+    if (values[i].value !== values[i - 1].value + values[i - 2].value) {
       return false;
     }
   }
@@ -22,7 +22,7 @@ const isConsecutiveFibonacci = (values: number[]) => {
 };
 
 const findHorizontalSequences = (
-  board: number[][],
+  board: { value: number }[][],
   rowIndex: number,
   colIndex: number,
 ): [number, number][] => {
@@ -47,7 +47,7 @@ const findHorizontalSequences = (
 };
 
 const findVerticalSequences = (
-  board: number[][],
+  board: { value: number }[][],
   rowIndex: number,
   colIndex: number,
 ): [number, number][] => {
@@ -56,7 +56,7 @@ const findVerticalSequences = (
   const verticalMatches: [number, number][] = [];
 
   for (let start = colStart; start <= colEnd; start++) {
-    const slice: number[] = [];
+    const slice: { value: number }[] = [];
 
     for (let i = 0; i < CONSECUTIVE_COUNT; i++) {
       slice.push(board[start + i][colIndex]);
@@ -74,7 +74,7 @@ const findVerticalSequences = (
 };
 
 export const findFibonacci = (
-  board: number[][],
+  board: { value: number }[][],
   rowIndex: number,
   colIndex: number,
 ): [number, number][] => {
