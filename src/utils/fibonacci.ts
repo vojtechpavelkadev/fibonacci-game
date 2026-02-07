@@ -56,6 +56,17 @@ export const findFibonacci = (
   rowIndex: number,
   colIndex: number,
 ): [number, number][] => {
+  if (
+    rowIndex < 0 ||
+    colIndex < 0 ||
+    rowIndex >= board.length ||
+    colIndex >= board.length
+  ) {
+    throw new RangeError(
+      `Index out of bounds: row=${rowIndex}, col=${colIndex}`,
+    );
+  }
+
   const value = board[rowIndex][colIndex];
   if (value == null) return [];
 
