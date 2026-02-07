@@ -5,19 +5,23 @@ export const resolveFibonacciMatches = (
   rowIndex: number,
   colIndex: number,
 ) => {
-  for (let row = 0; row < board.length; row++) {
-    const fibonacciCheckResult = [
-      ...findFibonacci(board, row, colIndex),
-      ...findFibonacci(board, rowIndex, row),
+  const toClear = new Set<string>();
+
+  for (let index = 0; index < board.length; index++) {
+    const results = [
+      ...findFibonacci(board, index, colIndex),
+      ...findFibonacci(board, rowIndex, index),
     ];
 
-    if (fibonacciCheckResult.length > 0) {
-      for (const [resultRow, resultCol] of fibonacciCheckResult) {
-        if (board[resultRow][resultCol].value === 0) continue;
-        board[resultRow][resultCol] = { value: 0 };
+    for (const [r, c] of results) {
+      if (board[r][c].value !== 0) {
+        toClear.add(`${r},${c}`);
       }
     }
   }
 
-  return;
+  for (const key of toClear) {
+    const [r, c] = key.split(',').map(Number);
+    board[r][c] = { value: 0 };
+  }
 };
