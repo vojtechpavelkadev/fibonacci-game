@@ -32,11 +32,16 @@ const checkValuesNonDecreasing = (values: { value: number }[]) => {
   return true;
 };
 
+const checkIsFibonacciLike = (values: { value: number }[]) => {
+  return values.every((v) => fibonacci.includes(v.value));
+};
+
 const isConsecutiveFibonacci = (values: { value: number }[]) => {
   if (values.length < 3) return false;
 
   if (!checkMaxOneZeroValue(values)) return false;
   if (!checkValuesNonDecreasing(values)) return false;
+  if (!checkIsFibonacciLike(values)) return false;
 
   for (let i = 0; i < values.length - 2; i++) {
     if (values[i].value + values[i + 1].value !== values[i + 2].value) {
