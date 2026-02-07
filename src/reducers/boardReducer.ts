@@ -1,4 +1,4 @@
-import { resolveFibonacciMatches } from '../utils/resolveFibonacciMatches';
+import { resolveFibonacciMatches } from '../utils/fibonacci';
 
 const SIZE = 50;
 

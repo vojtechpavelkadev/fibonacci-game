@@ -94,3 +94,33 @@ export const findFibonacci = (
   }
   return matches;
 };
+
+export const resolveFibonacciMatches = (
+  board: { value: number }[][],
+  rowIndex: number,
+  colIndex: number,
+) => {
+  const toClear = new Set<string>();
+
+  for (
+    let iterationIndex = 0;
+    iterationIndex < board.length;
+    iterationIndex++
+  ) {
+    const results = [
+      ...findFibonacci(board, iterationIndex, colIndex),
+      ...findFibonacci(board, rowIndex, iterationIndex),
+    ];
+
+    for (const [r, c] of results) {
+      if (board[r][c].value !== 0) {
+        toClear.add(`${r},${c}`);
+      }
+    }
+  }
+
+  for (const key of toClear) {
+    const [r, c] = key.split(',').map(Number);
+    board[r][c] = { value: 0 };
+  }
+};
