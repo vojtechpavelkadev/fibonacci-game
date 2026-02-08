@@ -6,7 +6,7 @@ export const ResetButton = () => {
 
   return (
     <Button
-      onClick={() => dispatch({ type: 'RESET', colIndex: 0, rowIndex: 0 })}
+      onClick={() => dispatch({ type: 'RESET' })}
       variant="contained"
       sx={{
         marginBottom: '2rem',

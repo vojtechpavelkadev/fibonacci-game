@@ -5,8 +5,8 @@ const SIZE = 50;
 export type BoardStateType = { value: number }[][];
 export type BoardActionType = {
   type: 'CELL_CLICK' | 'RESET';
-  colIndex: number;
-  rowIndex: number;
+  colIndex?: number;
+  rowIndex?: number;
 };
 
 export function createBoard() {
@@ -19,6 +19,10 @@ export function boardReducer(state: BoardStateType, action: BoardActionType) {
   switch (action.type) {
     case 'CELL_CLICK': {
       const { rowIndex, colIndex } = action;
+
+      if (rowIndex === undefined || colIndex === undefined) {
+        return state;
+      }
 
       const newBoard = state.map((row, r) => {
         if (r === rowIndex) {
