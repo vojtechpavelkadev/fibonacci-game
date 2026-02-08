@@ -74,7 +74,7 @@ export const findFibonacci = (
 
   for (const [rowDirection, colDirection] of directions) {
     for (let offset = -(CONSECUTIVE_COUNT - 1); offset <= 0; offset++) {
-      const slice = [];
+      const slice: { value: number }[] = [];
       const coords: [number, number][] = [];
 
       for (let i = 0; i < CONSECUTIVE_COUNT; i++) {
@@ -108,8 +108,8 @@ export const findFibonacci = (
 
 export const resolveFibonacciMatches = (
   board: { value: number }[][],
-  rowIndex: number,
-  colIndex: number,
+  clickedRowIndex: number,
+  clickedColIndex: number,
 ) => {
   const toClear = new Set<string>();
 
@@ -119,19 +119,19 @@ export const resolveFibonacciMatches = (
     iterationIndex++
   ) {
     const results = [
-      ...findFibonacci(board, iterationIndex, colIndex),
-      ...findFibonacci(board, rowIndex, iterationIndex),
+      ...findFibonacci(board, iterationIndex, clickedColIndex),
+      ...findFibonacci(board, clickedRowIndex, iterationIndex),
     ];
 
-    for (const [r, c] of results) {
-      if (board[r][c].value !== 0) {
-        toClear.add(`${r},${c}`);
+    for (const [resultRowIndex, resultColIndex] of results) {
+      if (board[resultRowIndex][resultColIndex].value !== 0) {
+        toClear.add(`${resultRowIndex},${resultColIndex}`);
       }
     }
   }
 
   for (const key of toClear) {
-    const [r, c] = key.split(',').map(Number);
-    board[r][c] = { value: 0 };
+    const [clearedRowIndex, clearedColIndex] = key.split(',').map(Number);
+    board[clearedRowIndex][clearedColIndex] = { value: 0 };
   }
 };

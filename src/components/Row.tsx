@@ -10,10 +10,7 @@ export const Row = React.memo(function Row({
   rowIndex: number;
 }) {
   return (
-    <Box
-      sx={{ display: 'flex', flexDirection: 'row', gap: '4px' }}
-      key={`row-${rowIndex}`}
-    >
+    <Box sx={{ display: 'flex', flexDirection: 'row', gap: '4px' }}>
       {row.map((cell, colIndex) => (
         <Cell
           colIndex={colIndex}
